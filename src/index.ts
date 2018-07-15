@@ -4,8 +4,11 @@ namespace mapAny {
   }
 }
 
+const isObject = (obj: any) =>
+  typeof obj === 'object' && obj !== null && obj !== undefined
+
 const map = (cb: mapAny.Callback<any>, mapee: any) =>
-  (mapee !== null && typeof mapee.map === 'function')
+  (isObject(mapee) && typeof mapee.map === 'function')
     ? mapee.map(cb)
     : cb(mapee, 0, [mapee])
 
