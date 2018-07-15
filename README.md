@@ -1,20 +1,24 @@
 # mapAny
 
-Map mappables (functors) and simple objects (non-functors).
+Map both mappables (functors) and other variables (non-functors).
 
 [![npm Version](https://img.shields.io/npm/v/map-any.svg)](https://www.npmjs.com/package/map-any)
 [![Build Status](https://travis-ci.org/kjellmorten/map-any.svg?branch=master)](https://travis-ci.org/kjellmorten/map-any)
 [![Coverage Status](https://coveralls.io/repos/github/kjellmorten/map-any/badge.svg?branch=master)](https://coveralls.io/github/kjellmorten/map-any?branch=master)
 [![Dependencies Status](https://tidelift.com/badges/github/kjellmorten/map-any?style=flat)](https://tidelift.com/subscriber/github/kjellmorten/repositories/map-any)
 
-`mapAny` is a function that accepts a callback function and a variable to map.
-When the variable has a `.map()` method, it is used. Otherwise the callback is
-called right away, with the object as first argument.
+`mapAny` is a function that accepts a callback function and a variable to map
+over. When the variable does not have a `.map()` method, the callback is called
+right away, with the variable as first argument. For a variable that implements
+its own `.map()` method, that method is called instead.
 
-This is useful when your code will treat an object or an array of objects the
-same way, and you're supposed to return an object when an object is given.
+The main motivation for `mapAny` is to have one way to apply a function to
+objects, when you don't know whether you'll get an array of objects or just an
+object. The result of this application will not be an array unless the input was
+an array. This could be accomplished through containers in a functional
+programming fashion, but `mapAny` is for cases where you don't use containers.
 
-The ES6 `Array.prototype.map()` syntax is used, so the callback's signature is
+The ES6 `Array.prototype.map()` syntax is used for the callback's signature:
 `function callback(currentValue[, index[, array]]) { // Return new element }`.
 When called with variable without a `.map()` method, the index will be `0`
 and the array will have one item, namely the provided variable.
