@@ -27,4 +27,4 @@ nbproject
 .env
 
 # Temps and outputs
-*.js
+dist

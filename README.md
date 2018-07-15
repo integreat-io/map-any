@@ -3,8 +3,9 @@
 Map mappables (functors) and simple objects (non-functors).
 
 [![npm Version](https://img.shields.io/npm/v/map-any.svg)](https://www.npmjs.com/package/map-any)
-[![Build Status](https://travis-ci.org/kjellorten/map-any.svg?branch=master)](https://travis-ci.org/kjellorten/map-any)
-[![Coverage Status](https://coveralls.io/repos/github/kjellorten/map-any/badge.svg?branch=master)](https://coveralls.io/github/kjellorten/map-any?branch=master)
+[![Build Status](https://travis-ci.org/kjellmorten/map-any.svg?branch=master)](https://travis-ci.org/kjellmorten/map-any)
+[![Coverage Status](https://coveralls.io/repos/github/kjellmorten/map-any/badge.svg?branch=master)](https://coveralls.io/github/kjellmorten/map-any?branch=master)
+[![Dependencies Status](https://tidelift.com/badges/github/kjellmorten/map-any?style=flat)](https://tidelift.com/subscriber/github/kjellmorten/repositories/map-any)
 
 When a `.map()` method is present, it is used. For objects without a `.map()`
 method, the callback is called with the object as first argument. The ES6 array

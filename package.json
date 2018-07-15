@@ -1,7 +1,7 @@
 {
   "name": "map-any",
   "version": "0.1.0",
-  "description": "Map mappable lists or a single object",
+  "description": "Map mappables (functors) and simple objects (non-functors)",
   "author": "Kjell-Morten Bratsberg Thorsen <post@kjellmorten.no>",
   "license": "ISC",
   "keywords": [
@@ -9,10 +9,9 @@
     "javascript",
     "functional"
   ],
-  "main": "index.js",
-  "types": "index.d.ts",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
-    "start": "tsc && node index.js",
     "test": "tsc && nyc --reporter=text-summary ava",
     "pretest:watch": "tsc",
     "test:watch": "tsc --watch & ava --watch",
@@ -25,15 +24,15 @@
   },
   "ava": {
     "files": [
-      "test.js"
+      "dist/**/*-test.js"
     ],
     "sources": [
-      "index.js"
+      "dist/**/!(*-test).js"
     ]
   },
   "nyc": {
-    "include": [
-      "index.js"
+    "exclude": [
+      "**/*-test.js"
     ]
   },
   "repository": {
