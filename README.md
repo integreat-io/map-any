@@ -7,14 +7,19 @@ Map mappables (functors) and simple objects (non-functors).
 [![Coverage Status](https://coveralls.io/repos/github/kjellmorten/map-any/badge.svg?branch=master)](https://coveralls.io/github/kjellmorten/map-any?branch=master)
 [![Dependencies Status](https://tidelift.com/badges/github/kjellmorten/map-any?style=flat)](https://tidelift.com/subscriber/github/kjellmorten/repositories/map-any)
 
-When a `.map()` method is present, it is used. For objects without a `.map()`
-method, the callback is called with the object as first argument. The ES6 array
-syntax is used, so the callback will also be given an index (always `0`) and
-the original array (`[object]`).
+`mapAny` is a function that accepts a callback function and a variable to map.
+When the variable has a `.map()` method, it is used. Otherwise the callback is
+called right away, with the object as first argument.
 
 This is useful when your code will treat an object or an array of objects the
 same way, and you're supposed to return an object when an object is given.
 
+The ES6 `Array.prototype.map()` syntax is used, so the callback's signature is
+`function callback(currentValue[, index[, array]]) { // Return new element }`.
+When called with variable without a `.map()` method, the index will be `0`
+and the array will have one item, namely the provided variable.
+
+An example:
 ```
 const mapAny = require('map-any')
 
