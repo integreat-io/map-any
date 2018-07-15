@@ -1,0 +1,56 @@
+{
+  "name": "map-any",
+  "version": "0.1.0",
+  "description": "Map mappable lists or a single object",
+  "author": "Kjell-Morten Bratsberg Thorsen <post@kjellmorten.no>",
+  "license": "ISC",
+  "keywords": [
+    "map",
+    "javascript",
+    "functional"
+  ],
+  "main": "index.js",
+  "types": "index.d.ts",
+  "scripts": {
+    "start": "tsc && node index.js",
+    "test": "tsc && nyc --reporter=text-summary ava",
+    "pretest:watch": "tsc",
+    "test:watch": "tsc --watch & ava --watch",
+    "dev": "npm run test:watch",
+    "build": "tsc",
+    "prepare": "npm run build",
+    "coverage": "nyc report --reporter=text-lcov | coveralls",
+    "nyc:report": "nyc report",
+    "lint": "tslint --project tsconfig.json --config tslint.json"
+  },
+  "ava": {
+    "files": [
+      "test.js"
+    ],
+    "sources": [
+      "index.js"
+    ]
+  },
+  "nyc": {
+    "include": [
+      "index.js"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kjellmorten/map-any.git"
+  },
+  "bugs": {
+    "url": "https://github.com/kjellmorten/map-any/issues"
+  },
+  "homepage": "https://github.com/kjellmorten/map-any#readme",
+  "devDependencies": {
+    "ava": "^0.25.0",
+    "babel-preset-env": "^1.7.0",
+    "coveralls": "^3.0.2",
+    "nyc": "^12.0.2",
+    "tslint": "^5.10.0",
+    "tslint-config-standard": "^7.1.0",
+    "typescript": "^2.9.2"
+  }
+}
