@@ -32,6 +32,13 @@ test('should map null', (t) => {
   t.deepEqual(ret, expected)
 })
 
+test('should map undefined', (t) => {
+  const expected = { id: 0 }
+  const ret = mapAny(setId, undefined)
+
+  t.deepEqual(ret, expected)
+})
+
 test('should provide original array', (t) => {
   const expectedArr = [{ last: false }, { last: false }, { last: true }]
   const expectedObj = { last: true }
