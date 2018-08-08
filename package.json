@@ -1,6 +1,6 @@
 {
   "name": "map-any",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Map mappables (functors) and simple objects (non-functors)",
   "author": "Kjell-Morten Bratsberg Thorsen <post@kjellmorten.no>",
   "license": "ISC",
@@ -12,10 +12,9 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "test": "tsc && nyc --reporter=text-summary ava",
-    "pretest:watch": "tsc",
-    "test:watch": "tsc --watch & ava --watch",
-    "dev": "npm run test:watch",
+    "test": "tsc && nyc --reporter=text-summary ava dist/**/*-test.js",
+    "test:watch": "npm run dev",
+    "dev": "ava --watch",
     "build": "tsc",
     "prepare": "npm run build",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
@@ -23,11 +22,18 @@
     "lint": "tslint --project tsconfig.json --config tslint.json"
   },
   "ava": {
+    "compileEnhancements": false,
+    "extensions": [
+      "ts"
+    ],
+    "require": [
+      "ts-node/register/transpile-only"
+    ],
     "files": [
-      "dist/**/*-test.js"
+      "src/**/*-test.ts"
     ],
     "sources": [
-      "dist/**/!(*-test).js"
+      "src/**/!(*-test).ts"
     ]
   },
   "nyc": {
@@ -44,12 +50,13 @@
   },
   "homepage": "https://github.com/kjellmorten/map-any#readme",
   "devDependencies": {
-    "ava": "^0.25.0",
+    "ava": "1.0.0-beta.6",
     "babel-preset-env": "^1.7.0",
     "coveralls": "^3.0.2",
     "nyc": "^12.0.2",
-    "tslint": "^5.10.0",
+    "ts-node": "^7.0.0",
+    "tslint": "^5.11.0",
     "tslint-config-standard": "^7.1.0",
-    "typescript": "^2.9.2"
+    "typescript": "^3.0.1"
   }
 }
