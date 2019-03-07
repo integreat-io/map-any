@@ -59,6 +59,13 @@ test('should be curried', (t) => {
   t.deepEqual(map(obj), expectedObj)
 })
 
+test('should map undefined curried', (t) => {
+  const expected = { id: 0 }
+  const ret = mapAny(setId)(undefined)
+
+  t.deepEqual(ret, expected)
+})
+
 test('should not throw when given undefined', (t) => {
   const expected = { id: 0 }
 
