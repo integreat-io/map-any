@@ -54,7 +54,7 @@ setRunningId({})
 
 ### Prerequisits
 
-Requires node v6.
+Requires node v8.
 
 ### Installing and using
 
