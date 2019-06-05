@@ -1,21 +1,33 @@
 namespace mapAny {
-  export interface Callback<T> {
-    (value: T, index?: number, array?: [T]): any
+  export interface Functor<T, U = T> {
+    (value: T, index?: number, array?: T[]): U
+  }
+
+  export interface Mappable<T, U> {
+    map: Functor<T, U>
   }
 }
 
-const isObject = (obj: any) =>
-  typeof obj === 'object' && obj !== null && obj !== undefined
+const isMappable = (obj: any): obj is mapAny.Mappable<any, any> =>
+  typeof obj === 'object' && obj !== null && typeof obj.map === 'function'
 
-const map = (cb: mapAny.Callback<any>, mapee: any) =>
-  (isObject(mapee) && typeof mapee.map === 'function')
+function map<T = any, U = any> (cb: mapAny.Functor<T, U>, mapee: T | T[]): U | U[] {
+  return (isMappable(mapee))
     ? mapee.map(cb)
-    : cb(mapee, 0, [mapee])
+    : cb(mapee as T, 0, [mapee as T])
+}
 
-function mapAny (cb: mapAny.Callback<any>): (mapee: any) => any
-function mapAny (cb: mapAny.Callback<any>, mapee: any): any
-function mapAny (cb: mapAny.Callback<any>, mapee?: any) {
-  return (arguments.length === 1)
+function mapAny<T = any, U = any> (cb: mapAny.Functor<T, U>): (mapee: T) => U
+function mapAny<T = any, U = any> (cb: mapAny.Functor<T, U>): (mapee: T[]) => U[]
+function mapAny<T = any, U = any> (cb: mapAny.Functor<T, U>, mapee: T): U
+function mapAny<T = any, U = any> (cb: mapAny.Functor<T, U>, mapee: T[]): U[]
+function mapAny<T = any, U = any> (cb: mapAny.Functor<T, U>, mapee?: T | T[]): U | U[] | ((mapee: T | T[]) => U | U[]) {
+  const argCount = arguments.length
+  function isUnary<V> (_arg?: V): _arg is undefined {
+    return argCount === 1 // This function is basically just for typing `mapee` correctly
+  }
+
+  return (isUnary(mapee))
     ? (mapee: any) => map(cb, mapee)
     : map(cb, mapee)
 }

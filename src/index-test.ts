@@ -1,13 +1,13 @@
 import test from 'ava'
 
-import * as mapAny from '.'
+import mapAny = require('.')
 
 // Helpers
 
 const arr = [{}, {}, {}]
 const obj = {}
-const setId: mapAny.Callback<{}> = (obj, index) => ({ ...obj, id: index })
-const markLast: mapAny.Callback<{}> = (obj, index, array) => ({ ...obj, last: array && index === array.length - 1 })
+const setId: mapAny.Functor<{} | null | undefined> = (obj, index) => ({ ...obj, id: index })
+const markLast: mapAny.Functor<{}> = (obj, index, array) => ({ ...obj, last: array && index === array.length - 1 })
 
 // Tests
 
