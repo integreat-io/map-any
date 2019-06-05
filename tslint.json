@@ -1,6 +1,9 @@
 {
-  "extends": "tslint-config-standard",
+  "extends": [
+    "tslint-config-standard",
+    "tslint-config-security"
+  ],
   "rules": {
-    "no-empty": false
+    "tsr-detect-possible-timing-attacks": false
   }
 }
