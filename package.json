@@ -46,6 +46,11 @@
       "**/*-test.ts"
     ]
   },
+  "prettier": {
+    "semi": false,
+    "singleQuote": true,
+    "jsxSingleQuote": true
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/kjellmorten/map-any.git"
@@ -55,14 +60,16 @@
   },
   "homepage": "https://github.com/kjellmorten/map-any#readme",
   "devDependencies": {
-    "ava": "2.0.0",
+    "ava": "2.1.0",
     "babel-preset-env": "^1.7.0",
-    "coveralls": "^3.0.3",
+    "coveralls": "^3.0.4",
     "nyc": "^14.1.1",
-    "ts-node": "^8.2.0",
-    "tslint": "^5.17.0",
+    "prettier": "^1.18.2",
+    "ts-node": "^8.3.0",
+    "tslint": "^5.18.0",
+    "tslint-config-prettier": "^1.18.0",
     "tslint-config-security": "^1.16.0",
     "tslint-config-standard": "^8.0.1",
-    "typescript": "^3.5.1"
+    "typescript": "^3.5.2"
   }
 }

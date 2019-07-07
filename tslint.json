@@ -1,6 +1,7 @@
 {
   "extends": [
     "tslint-config-standard",
+    "tslint-config-prettier",
     "tslint-config-security"
   ],
   "rules": {
