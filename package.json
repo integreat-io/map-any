@@ -30,10 +30,10 @@
       "ts-node/register/transpile-only"
     ],
     "files": [
-      "src/**/*-test.ts"
+      "src/**/*.test.ts"
     ],
     "sources": [
-      "src/**/!(*-test).ts"
+      "src/**/!(*.test).ts"
     ]
   },
   "nyc": {
@@ -42,8 +42,8 @@
       ".js"
     ],
     "exclude": [
-      "**/*-test.js",
-      "**/*-test.ts"
+      "**/*.test.js",
+      "**/*.test.ts"
     ]
   },
   "prettier": {
