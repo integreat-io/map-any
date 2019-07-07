@@ -1,37 +1,33 @@
-namespace mapAny {
-  export interface Functor<T, U = T> {
-    (value: T, index?: number, array?: T[]): U
-  }
+type MapReturnType<T, F extends Functor> = T extends (infer U)[]
+  ? U[]
+  : T extends { map: (...args: any[]) => infer U }
+  ? U
+  : ReturnType<F>
 
-  export interface Mappable<T, U> {
-    map: Functor<T, U>
-  }
+type Functor = (value: any, index?: number, array?: any) => any
+
+interface Mappable {
+  map: (functor: Functor) => any
 }
 
-const isMappable = (obj: any): obj is mapAny.Mappable<any, any> =>
-  typeof obj === 'object' && obj !== null && typeof obj.map === 'function'
+const isMappable = <T>(obj: T | Mappable): obj is Mappable =>
+  typeof obj === 'object' &&
+  obj !== null &&
+  typeof (obj as Mappable).map === 'function'
 
-function map<T = any, U = any>(
-  cb: mapAny.Functor<T, U>,
-  mapee: T | T[]
-): U | U[] {
-  return isMappable(mapee) ? mapee.map(cb) : cb(mapee as T, 0, [mapee as T])
+function map<T, F extends Functor>(cb: F, mapee: T | Mappable) {
+  return isMappable<T>(mapee) ? mapee.map(cb) : cb(mapee, 0, [mapee])
 }
 
-function mapAny<T = any, U = any>(cb: mapAny.Functor<T, U>): (mapee: T) => U
-function mapAny<T = any, U = any>(cb: mapAny.Functor<T, U>): (mapee: T[]) => U[]
-function mapAny<T = any, U = any>(cb: mapAny.Functor<T, U>, mapee: T): U
-function mapAny<T = any, U = any>(cb: mapAny.Functor<T, U>, mapee: T[]): U[]
-function mapAny<T = any, U = any>(
-  cb: mapAny.Functor<T, U>,
-  mapee?: T | T[]
-): U | U[] | ((mapee: T | T[]) => U | U[]) {
+function mapAny<F extends Functor>(cb: F): <U>(mapee: U) => MapReturnType<U, F>
+function mapAny<T, F extends Functor>(cb: F, mapee: T): MapReturnType<T, F>
+function mapAny<T, U, F extends Functor>(cb: F, mapee?: T): any {
   const argCount = arguments.length
-  function isUnary<V>(_arg?: V): _arg is undefined {
-    return argCount === 1 // This function is basically just for typing `mapee` correctly
-  }
 
-  return isUnary(mapee) ? (mapee: any) => map(cb, mapee) : map(cb, mapee)
+  // This function is basically just for typing `mapee` correctly
+  const isUnary = (_arg?: any): _arg is undefined => argCount === 1
+
+  return isUnary(mapee) ? (uniMapee: U) => map(cb, uniMapee) : map(cb, mapee)
 }
 
 export = mapAny
