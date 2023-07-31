@@ -3,9 +3,6 @@
 Map both mappables (functors) and other variables (non-functors).
 
 [![npm Version](https://img.shields.io/npm/v/map-any.svg)](https://www.npmjs.com/package/map-any)
-[![Build Status](https://travis-ci.org/kjellmorten/map-any.svg?branch=master)](https://travis-ci.org/kjellmorten/map-any)
-[![Coverage Status](https://coveralls.io/repos/github/kjellmorten/map-any/badge.svg?branch=master)](https://coveralls.io/github/kjellmorten/map-any?branch=master)
-[![Dependencies Status](https://tidelift.com/badges/github/kjellmorten/map-any?style=flat)](https://tidelift.com/subscriber/github/kjellmorten/repositories/map-any)
 
 `mapAny` is a function that accepts a callback function and a variable to map
 over. When the variable does not have a `.map()` method, the callback is called

@@ -12,44 +12,13 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "test": "nyc --reporter=text-summary ava",
+    "test": "npm run lint && npm run build && c8 --reporter=text-summary ava --config ./ava-dist.config.cjs",
     "test:watch": "npm run dev",
     "dev": "ava --watch",
     "build": "tsc",
     "prepare": "npm run build",
-    "coverage": "nyc report --reporter=text-lcov | coveralls",
-    "nyc:report": "nyc report",
-    "lint": "tslint --project tsconfig.json --config tslint.json"
-  },
-  "ava": {
-    "compileEnhancements": false,
-    "extensions": [
-      "ts"
-    ],
-    "require": [
-      "ts-node/register/transpile-only"
-    ],
-    "files": [
-      "src/**/*.test.ts"
-    ],
-    "sources": [
-      "src/**/!(*.test).ts"
-    ]
-  },
-  "nyc": {
-    "extension": [
-      ".ts",
-      ".js"
-    ],
-    "exclude": [
-      "**/*.test.js",
-      "**/*.test.ts"
-    ]
-  },
-  "prettier": {
-    "semi": false,
-    "singleQuote": true,
-    "jsxSingleQuote": true
+    "coverage": "c8 report",
+    "lint": "eslint --ext .ts src"
   },
   "repository": {
     "type": "git",
@@ -59,17 +28,10 @@
     "url": "https://github.com/kjellmorten/map-any/issues"
   },
   "homepage": "https://github.com/kjellmorten/map-any#readme",
+  "engines": {
+    "node": ">= 16.20"
+  },
   "devDependencies": {
-    "ava": "2.1.0",
-    "babel-preset-env": "^1.7.0",
-    "coveralls": "^3.0.4",
-    "nyc": "^14.1.1",
-    "prettier": "^1.18.2",
-    "ts-node": "^8.3.0",
-    "tslint": "^5.18.0",
-    "tslint-config-prettier": "^1.18.0",
-    "tslint-config-security": "^1.16.0",
-    "tslint-config-standard": "^8.0.1",
-    "typescript": "^3.5.2"
+    "@integreat/ts-dev-setup": "^4.1.1"
   }
 }

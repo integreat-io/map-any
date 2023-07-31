@@ -2,7 +2,7 @@ import test from 'ava'
 
 import mapAny = require('.')
 
-// Helpers
+// Setup
 
 interface TestObject {
   id?: number
@@ -15,7 +15,7 @@ const setId = (obj: TestObject | null, index?: number) => ({
   ...obj,
   id: index
 })
-const markLast = (obj: TestObject | null, index?: number, array?: {}[]) => ({
+const markLast = (obj: TestObject | null, index?: number, array?: unknown[]) => ({
   ...obj,
   last: !!array && index === array.length - 1
 })

@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+// TODO: Fix typing to avoid using `any`
+
 type MapReturnType<T, F extends Functor> = T extends (infer U)[]
   ? U[]
   : T extends { map: (...args: any[]) => infer U }
