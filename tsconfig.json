@@ -4,20 +4,22 @@
     "module": "commonjs",
     "moduleResolution": "node",
     "declaration": true,
+    "resolveJsonModule": false,
     "sourceMap": true,
-    "outDir": "./dist",
     "noEmitOnError": false,
     "strict": true,
     "noImplicitAny": true,
+    "noImplicitThis": true,
     "strictNullChecks": true,
+    "noImplicitReturns": true,
+    "alwaysStrict": true,
+    "skipLibCheck": true,
+    "removeComments": true,
     "baseUrl": ".",
     "paths": {
-      "*": [
-        "node_modules/*"
-      ]
-    }
+      "*": ["node_modules/*"]
+    },
+    "outDir": "./dist"
   },
-  "include": [
-    "src"
-  ]
+  "include": ["src/**/*"]
 }
