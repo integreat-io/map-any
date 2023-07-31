@@ -9,6 +9,7 @@
     "javascript",
     "functional"
   ],
+  "type": "module",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "exports": {
@@ -39,7 +40,7 @@
   },
   "homepage": "https://github.com/kjellmorten/map-any#readme",
   "engines": {
-    "node": ">= 16.20"
+    "node": ">= 18"
   },
   "devDependencies": {
     "@integreat/ts-dev-setup": "^4.1.1"

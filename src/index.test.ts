@@ -1,6 +1,6 @@
 import test from 'ava'
 
-import mapAny from '.'
+import mapAny from './index.js'
 
 // Setup
 

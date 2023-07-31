@@ -1,6 +1,6 @@
 import test from 'ava'
 
-import mapAny from './async'
+import mapAny from './async.js'
 
 // Setup
 
