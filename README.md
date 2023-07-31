@@ -22,6 +22,7 @@ When called with variable without a `.map()` method, the index will be `0`
 and the array will have one item, namely the provided variable.
 
 An example:
+
 ```
 const mapAny = require('map-any')
 
@@ -29,14 +30,15 @@ const arr = [1, 2, 3, 4, 5]
 const num = 10
 const callback = (x) => x + 1
 
-mapAny(callback, arr)
+mapAny(callback)(arr)
 // --> [2, 3, 4, 5, 6]
 
-mapAny(callback, num)
+mapAny(callback)(num)
 // --> 11
 ```
 
-It's curried as well:
+As it's curried, you may use it to create a mapper as well:
+
 ```
 const mapAny = require('map-any')
 const setRunningId = mapAny((x, index) => ({ ...x, id: index}))
@@ -52,7 +54,7 @@ setRunningId({})
 
 ### Prerequisits
 
-Requires node v8.
+Requires node v16.
 
 ### Installing and using
 
