@@ -11,6 +11,16 @@
   ],
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./async.js": {
+      "import": "./dist/async.js",
+      "types": "./dist/async.d.ts"
+    }
+  },
   "scripts": {
     "test": "npm run lint && npm run build && c8 --reporter=text-summary ava --config ./ava-dist.config.cjs",
     "test:watch": "npm run dev",
