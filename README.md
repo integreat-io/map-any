@@ -24,7 +24,7 @@ and the array will have one item, namely the provided variable.
 An example:
 
 ```
-const mapAny = require('map-any')
+import mapAny from 'map-any'
 
 const arr = [1, 2, 3, 4, 5]
 const num = 10
@@ -40,7 +40,7 @@ mapAny(callback)(num)
 As it's curried, you may use it to create a mapper as well:
 
 ```
-const mapAny = require('map-any')
+import mapAny from 'map-any'
 const setRunningId = mapAny((x, index) => ({ ...x, id: index}))
 
 setRunningId([{}, {}, {}])
@@ -48,6 +48,22 @@ setRunningId([{}, {}, {}])
 
 setRunningId({})
 // --> { id: 0 }
+```
+
+There's also an async version, that's accepts a function that returns a promise:
+
+```
+import mapAny from 'map-any/async.js'
+
+const arr = [1, 2, 3, 4, 5]
+const num = 10
+const callback = async (x) => x + 1 // This function returns a promise
+
+await mapAny(callback)(arr)
+// --> [2, 3, 4, 5, 6]
+
+await mapAny(callback)(num)
+// --> 11
 ```
 
 ## Getting started
