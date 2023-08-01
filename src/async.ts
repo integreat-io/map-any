@@ -1,36 +1,35 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-// TODO: Fix typing to avoid using `any`
+type Fun<El, Ret> = (value: El, index?: number, array?: El[]) => Ret extends Promise<infer U> ? U : Promise<Ret>
 
-type AsyncReturnType<T extends (...args: any) => Promise<any> | any> =
-  T extends (...args: any) => Promise<infer R> ? R : any
+type UnaryMapper<El, Ret, Els extends El | El[]> = (elements: Els) => Promise<Els extends El[] ? Ret[] : Ret>
 
-type MapReturnType<T, F extends Fun> = T extends (infer U)[]
-  ? U[]
-  : T extends { map: (...args: any[]) => infer U }
-  ? U
-  : AsyncReturnType<F>
+type MapReturnType<El, Ret, Els> = Els extends El[] ? Ret[] : Els extends { map: (...args: never[]) => infer U } ? U : Ret
 
-type Fun = (value: any, index?: number, array?: any) => Promise<any>
+const isMappable = <El>(value: El | El[]): value is El[] => Array.isArray(value)
 
-interface Mappable {
-  map: (functor: Fun) => any
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+async function mapWithMap<El, Ret>(cb: Fun<El, Ret>, elements: El[]): Promise<any> {
+  return await Promise.all(elements.map(cb))
 }
 
-const isMappable = <T>(obj: T | Mappable): obj is Mappable =>
-  typeof obj === 'object' &&
-  obj !== null &&
-  typeof (obj as Mappable).map === 'function'
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+async function mapOne<El, Ret>(cb: Fun<El, Ret>, element: El): Promise<any> {
+  return cb(element, 0, [element])
+}
 
-async function map<T, F extends Fun>(cb: F, mapee: T | Mappable) {
-  if (Array.isArray(mapee)) {
-    return await Promise.all(mapee.map(cb))
+const mapper = async <El, Ret>(cb: Fun<El, Ret>, elements: El | El[]) =>
+  (isMappable<El>(elements)) ? await mapWithMap(cb, elements) : await mapOne(cb, elements as El)
+
+function mapAny<El, Ret, Els extends El | El[]>(cb: Fun<El, Ret>): UnaryMapper<El, Ret, Els>
+function mapAny<El, Ret, Els extends El | El[]>(cb: Fun<El, Ret>, elements: Els): Promise<MapReturnType<El, Ret, Els>>
+function mapAny<El, Ret, Els extends El | El[]>(cb: Fun<El, Ret>, elements?: Els): Promise<MapReturnType<El, Ret, Els>> | UnaryMapper<El, Ret, Els> {
+  const argLength = arguments.length
+  const isUnary = (_el?: Els): _el is undefined => argLength === 1
+
+  if (isUnary(elements)) {
+    return (elements: Els) => mapper(cb, elements)
   } else {
-    return isMappable<T>(mapee) ? await mapee.map(cb) : await cb(mapee, 0, [mapee])
+    return mapper(cb, elements)
   }
-}
-
-function mapAny<F extends Fun>(cb: F): <T>(mapee: T) => Promise<MapReturnType<T, F>> {
-  return async (uniMapee) => await map(cb, uniMapee)
 }
 
 export default mapAny

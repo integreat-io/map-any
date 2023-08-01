@@ -50,7 +50,7 @@ setRunningId({})
 // --> { id: 0 }
 ```
 
-There's also an async version, that's accepts a function that returns a promise:
+There's also an async version, that accepts a function that returns a promise:
 
 ```
 import mapAny from 'map-any/async.js'
@@ -65,6 +65,10 @@ await mapAny(callback)(arr)
 await mapAny(callback)(num)
 // --> 11
 ```
+
+_Note:_ `mapAny` also supports mapping over any object with a `.map()` method,
+but this does not work with the async version, and the sync version will mess
+up the typing. So we recommend to use only the syncronous, non-curried version.
 
 ## Getting started
 

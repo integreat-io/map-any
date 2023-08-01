@@ -26,8 +26,8 @@ class Box {
     this.value = value
   }
   value: number
-  map(functor: (value: number) => number) {
-    return new Box(functor(this.value))
+  map(mapper: (value: number) => number) {
+    return new Box(mapper(this.value))
   }
 }
 
@@ -37,7 +37,7 @@ test('should map array', t => {
   const items = [1, 2, 3]
   const expected = [2, 3, 4]
 
-  const ret = mapAny(addOne)(items)
+  const ret = mapAny(addOne, items)
 
   t.deepEqual(ret, expected)
 })
@@ -46,7 +46,7 @@ test('should map object', t => {
   const item = 4
   const expected = 5
 
-  const ret = mapAny(addOne)(item)
+  const ret = mapAny(addOne, item)
 
   t.deepEqual(ret, expected)
 })
@@ -54,7 +54,7 @@ test('should map object', t => {
 test('should map null', t => {
   const expected = { id: 0 }
 
-  const ret = mapAny(setId)(null)
+  const ret = mapAny(setId, null)
 
   t.deepEqual(ret, expected)
 })
@@ -62,7 +62,8 @@ test('should map null', t => {
 test('should map undefined', t => {
   const expected = { id: 0 }
 
-  const ret = mapAny(setId)(undefined)
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const ret = mapAny(setId, undefined as any)
 
   t.deepEqual(ret, expected)
 })
@@ -71,8 +72,8 @@ test('should provide original array', t => {
   const expectedArr = [{ last: false }, { last: false }, { last: true }]
   const expectedObj = { last: true }
 
-  const retArr = mapAny(markLast)(arr)
-  const retObj = mapAny(markLast)(obj)
+  const retArr = mapAny(markLast, arr)
+  const retObj = mapAny(markLast, obj)
 
   t.deepEqual(retArr, expectedArr)
   t.deepEqual(retObj, expectedObj)
@@ -81,8 +82,35 @@ test('should provide original array', t => {
 test('should map object with map method', t => {
   const box = new Box(5)
 
-  const ret = mapAny(addOne)(box)
+  const ret = mapAny(addOne, box)
 
   t.true(ret instanceof Box)
   t.is(ret.value, 6)
+})
+
+test('should map array as unary', t => {
+  const items = [1, 2, 3]
+  const expected = [2, 3, 4]
+
+  const ret = mapAny(addOne)(items)
+
+  t.deepEqual(ret, expected)
+})
+
+test('should map object as unary', t => {
+  const item = 4
+  const expected = 5
+
+  const ret = mapAny(addOne)(item)
+
+  t.deepEqual(ret, expected)
+})
+
+test('should map object with map method as unary', t => {
+  const box = new Box(5)
+
+  const ret = mapAny(addOne)(box)
+
+  t.true(ret instanceof Box)
+  t.is((ret as unknown as Box).value, 6) // The typing is wrong for unary here :(
 })
