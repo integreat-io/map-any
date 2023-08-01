@@ -1,4 +1,4 @@
-type Fun<El, Ret> = (value: El, index?: number, array?: El[]) => Ret extends Promise<infer U> ? U : Promise<Ret>
+type Fun<El, Ret> = (value: El, index?: number, array?: El[]) => Promise<Ret>
 
 type UnaryMapper<El, Ret, Els extends El | El[]> = (elements: Els) => Promise<Els extends El[] ? Ret[] : Ret>
 

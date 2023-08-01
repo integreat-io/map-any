@@ -20,6 +20,7 @@ const markLast = (obj: TestObject | null, index?: number, array?: unknown[]) => 
   last: !!array && index === array.length - 1
 })
 const addOne = (value: number) => value + 1
+const doubleIfNumber = (value: unknown) => typeof value === 'number' ? value * 2 : undefined
 
 class Box {
   constructor(value: number) {
@@ -64,6 +65,15 @@ test('should map undefined', t => {
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const ret = mapAny(setId, undefined as any)
+
+  t.deepEqual(ret, expected)
+})
+
+test('should handle several return types', t => {
+  const items = [1, 2, 'bill', 3, new Date()]
+  const expected = [2, 4, undefined, 6, undefined]
+
+  const ret = mapAny(doubleIfNumber, items)
 
   t.deepEqual(ret, expected)
 })
