@@ -1,6 +1,6 @@
 {
   "name": "map-any",
-  "version": "0.3.0-rc.1",
+  "version": "0.3.0",
   "description": "Map mappables (functors) and simple objects (non-functors)",
   "author": "Kjell-Morten Bratsberg Thorsen <post@kjellmorten.no>",
   "license": "ISC",
