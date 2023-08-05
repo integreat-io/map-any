@@ -1,31 +1,29 @@
-type Fun<El, Ret> = (value: El, index?: number, array?: El[]) => Promise<Ret>
-
-type UnaryMapper<El, Ret, Els extends El | El[]> = (elements: Els) => Promise<Els extends El[] ? Ret[] : Ret>
-
-type MapReturnType<El, Ret, Els> = Els extends El[] ? Ret[] : Els extends { map: (...args: never[]) => infer U } ? U : Ret
+import { isUnary } from './utils/is.js'
+import type { AsyncFun, MapReturnType, AsyncUnaryMapper } from './types.js'
 
 const isMappable = <El>(value: El | El[]): value is El[] => Array.isArray(value)
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-async function mapWithMap<El, Ret>(cb: Fun<El, Ret>, elements: El[]): Promise<any> {
-  return await Promise.all(elements.map(cb))
-}
+const mapper = async <El, Ret>(
+  cb: AsyncFun<El, Ret>,
+  elements: El | El[]
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+): Promise<any> =>
+  isMappable<El>(elements)
+    ? await Promise.all(elements.map(cb))
+    : await cb(elements, 0, [elements])
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-async function mapOne<El, Ret>(cb: Fun<El, Ret>, element: El): Promise<any> {
-  return cb(element, 0, [element])
-}
-
-const mapper = async <El, Ret>(cb: Fun<El, Ret>, elements: El | El[]) =>
-  (isMappable<El>(elements)) ? await mapWithMap(cb, elements) : await mapOne(cb, elements as El)
-
-function mapAny<El, Ret, Els extends El | El[]>(cb: Fun<El, Ret>): UnaryMapper<El, Ret, Els>
-function mapAny<El, Ret, Els extends El | El[]>(cb: Fun<El, Ret>, elements: Els): Promise<MapReturnType<El, Ret, Els>>
-function mapAny<El, Ret, Els extends El | El[]>(cb: Fun<El, Ret>, elements?: Els): Promise<MapReturnType<El, Ret, Els>> | UnaryMapper<El, Ret, Els> {
-  const argLength = arguments.length
-  const isUnary = (_el?: Els): _el is undefined => argLength === 1
-
-  if (isUnary(elements)) {
+function mapAny<El, Ret, Els extends El | El[]>(
+  cb: AsyncFun<El, Ret>
+): AsyncUnaryMapper<El, Ret, Els>
+function mapAny<El, Ret, Els extends El | El[]>(
+  cb: AsyncFun<El, Ret>,
+  elements: Els
+): Promise<MapReturnType<El, Ret, Els>>
+function mapAny<El, Ret, Els extends El | El[]>(
+  cb: AsyncFun<El, Ret>,
+  elements?: Els
+): Promise<MapReturnType<El, Ret, Els>> | AsyncUnaryMapper<El, Ret, Els> {
+  if (isUnary(elements, arguments.length)) {
     return (elements: Els) => mapper(cb, elements)
   } else {
     return mapper(cb, elements)
