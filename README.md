@@ -3,7 +3,7 @@
 Map both mappables (functors) and other variables (non-functors).
 
 [![npm Version](https://img.shields.io/npm/v/map-any.svg)](https://www.npmjs.com/package/map-any)
-[![Maintainability](https://api.codeclimate.com/v1/badges/f02b87569b067537736d/maintainability)](https://codeclimate.com/github/kjellmorten/map-any/maintainability)
+[![Maintainability](https://api.codeclimate.com/v1/badges/c7620cb5749e5e4b66ff/maintainability)](https://codeclimate.com/github/integreat-io/map-any/maintainability)
 
 `mapAny` is a function that accepts a callback function and a variable to map
 over. When the variable does not have a `.map()` method, the callback is called
@@ -74,14 +74,14 @@ up the typing. So we recommend to use only the syncronous, non-curried version.
 
 ### Prerequisits
 
-Requires node v16.
+Requires node v18.
 
 ### Installing and using
 
 Install from npm:
 
 ```
-npm install map-any --save
+npm i map-any
 ```
 
 ### Running the tests
@@ -91,12 +91,12 @@ The tests can be run with `npm test`.
 ## Contributing
 
 Please read
-[CONTRIBUTING](https://github.com/kjellmorten/map-any/blob/master/CONTRIBUTING.md)
+[CONTRIBUTING](https://github.com/integreat-io/map-any/blob/master/CONTRIBUTING.md)
 for details on our code of conduct, and the process for submitting pull
 requests.
 
 ## License
 
 This project is licensed under the ISC License - see the
-[LICENSE](https://github.com/kjellmorten/map-any/blob/master/LICENSE)
+[LICENSE](https://github.com/integreat-io/map-any/blob/master/LICENSE)
 file for details.

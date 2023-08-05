@@ -1,8 +1,8 @@
 {
   "name": "map-any",
   "version": "0.3.1",
-  "description": "Map mappables (functors) and simple objects (non-functors)",
-  "author": "Kjell-Morten Bratsberg Thorsen <post@kjellmorten.no>",
+  "description": "Map mappables (functors) and other values (non-functors)",
+  "author": "Kjell-Morten Bratsberg Thorsen <kjellmorten@integreat.io>",
   "license": "ISC",
   "keywords": [
     "map",
@@ -33,12 +33,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/kjellmorten/map-any.git"
+    "url": "git+https://github.com/integreat-io/map-any.git"
   },
   "bugs": {
-    "url": "https://github.com/kjellmorten/map-any/issues"
+    "url": "https://github.com/integreat-io/map-any/issues"
   },
-  "homepage": "https://github.com/kjellmorten/map-any#readme",
+  "homepage": "https://github.com/integreat-io/map-any#readme",
   "engines": {
     "node": ">= 18"
   },

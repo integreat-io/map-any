@@ -1,7 +1,7 @@
 # Contributing
 
 When contributing to this repository, please first discuss the change you wish
-to make via [issues](https://github.com/kjellmorten/map-any/issues)
+to make via [issues](https://github.com/integreat-io/map-any/issues)
 with the owners of this repository before making a change.
 
 Please note we have a code of conduct, please follow it in all your interactions
@@ -43,7 +43,7 @@ include:
 Examples of unacceptable behavior by participants include:
 
 - The use of sexualized language or imagery and unwelcome sexual attention or
-advances
+  advances
 - Trolling, insulting/derogatory comments, and personal or political attacks
 - Public or private harassment
 - Publishing others' private information, such as a physical or electronic
@@ -75,7 +75,7 @@ further defined and clarified by project maintainers.
 ### Enforcement
 
 Instances of abusive, harassing, or otherwise unacceptable behavior may be
-reported by contacting the project team at post@kjellmorten.no. All
+reported by contacting the project team at dev@integreat.io. All
 complaints will be reviewed and investigated and will result in a response that
 is deemed necessary and appropriate to the circumstances. The project team is
 obligated to maintain confidentiality with regard to the reporter of an
