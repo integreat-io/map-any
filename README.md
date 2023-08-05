@@ -67,8 +67,9 @@ await mapAny(callback)(num)
 ```
 
 _Note:_ `mapAny` also supports mapping over any object with a `.map()` method,
-but this does not work with the async version, and the sync version will mess
-up the typing. So we recommend to use only the syncronous, non-curried version.
+but this does not work with the async version, and the sync version will mess up
+the typing when used curried with object with `.map()` (other than arrays). We
+hope to fix this in a future version, but for now it's not a priority.
 
 ## Getting started
 
